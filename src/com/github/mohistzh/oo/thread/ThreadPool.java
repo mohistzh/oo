@@ -63,4 +63,32 @@ public class ThreadPool {
     public static ThreadPool getInstance(int threadCount) {
         return new ThreadPool(threadCount);
     }
+
+    /**
+     * Add a task to the queue for processing
+     * @param task Runnable object
+     */
+    public void execute(Runnable task) {
+        if (this.executable.get()) {
+            taskQueue.add(task);
+        } else {
+            throw new IllegalArgumentException("ThreadPool terminating, unable to execute task.");
+        }
+    }
+
+    /**
+     * Clears the queue of tasks and stop the threadpool.
+     * Any tasks currently executing will continue to execute.
+     */
+    public void terminate() {
+        taskQueue.clear();
+        stop();
+    }
+
+    /**
+     * Stops addition of new task to the threadpool and terminates the pool once all tasks in the queue are executed.
+     */
+    public void stop() {
+        executable.set(false);
+    }
 }
