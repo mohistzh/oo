@@ -3,6 +3,7 @@ package com.github.mohistzh.oo.thread;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -76,6 +77,58 @@ public class ThreadPool {
         }
     }
 
+    public void awaitTermination(long timeout) throws TimeoutException {
+        if (this.executable.get()) {
+            throw new IllegalStateException("ThreadPool not terminated before awaiting termination.");
+        }
+        long startTime = System.currentTimeMillis();
+        while (System.currentTimeMillis() - startTime <= timeout) {
+            boolean flag = true;
+            for (Thread thread : threads) {
+                if (thread.isAlive()) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                return;
+            }
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                throw new ThreadPoolException(e);
+            }
+        }
+        throw new TimeoutException("Unable to terminate ThreadPool within the specified timeout (" + timeout + "ms)");
+    }
+
+    /**
+     * Awaits the termination of the threads in the threadpool indefinitely
+     * @throws TimeoutException
+     */
+    public void awaitTermination() throws TimeoutException {
+        if (this.executable.get()) {
+            throw new IllegalStateException("ThreadPool not terminated before awaiting termination.");
+        }
+        while (true) {
+            boolean flag = true;
+            for (Thread thread : threads) {
+                if (thread.isAlive()) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                return;
+            }
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                throw new ThreadPoolException(e);
+            }
+        }
+    }
+
     /**
      * Clears the queue of tasks and stop the threadpool.
      * Any tasks currently executing will continue to execute.
@@ -90,5 +143,15 @@ public class ThreadPool {
      */
     public void stop() {
         executable.set(false);
+    }
+
+    /**
+     * Thrown when there is a RuntimeException or InterruptedException when executing a Runnable object from the queue
+     * Or awaiting termination
+     */
+    private class ThreadPoolException extends RuntimeException {
+        public ThreadPoolException(Throwable cause) {
+            super(cause);
+        }
     }
 }
