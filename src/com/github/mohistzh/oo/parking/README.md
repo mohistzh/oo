@@ -61,6 +61,11 @@ Here are the main classes of our Packing Lot System:
 * **ElectricPanel:** Customers will use the electric panels to pay and charge their electric vehicles.
 
 
+## Activity diagram
 
+**Customer paying for parking ticket:** Any customer can perform this activity.
+
+
+![Parking lot activity diagram](https://raw.githubusercontent.com/mohistzh/oo/master/static/Parking%20Lot%20--%20Activity%20Diagram.png)
 
 
