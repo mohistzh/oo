@@ -1,5 +1,7 @@
 package com.github.mohistzh.oo.parking.people;
 
+import com.github.mohistzh.oo.parking.people.internal.Account;
+
 /**
  * Parking attendant
  * @Author Jonathan

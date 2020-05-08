@@ -1,5 +1,7 @@
 package com.github.mohistzh.oo.parking.people;
 
+import com.github.mohistzh.oo.parking.people.internal.Account;
+
 /**
  * Admin is an actor which mainly responsible for parking floors, parking spots, entrance, exit panels, and parking attendants.
  * @Author Jonathan
