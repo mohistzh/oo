@@ -1,4 +1,4 @@
-package com.github.mohistzh.oo.parking.pojo;
+package com.github.mohistzh.oo.parking.pojo.constant;
 
 /**
  * Parking ticket status

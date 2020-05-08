@@ -1,6 +1,6 @@
 package com.github.mohistzh.oo.parking.people.internal;
 
-import com.github.mohistzh.oo.parking.pojo.AccountStatus;
+import com.github.mohistzh.oo.parking.pojo.constant.AccountStatus;
 import com.github.mohistzh.oo.parking.pojo.Person;
 
 /**
