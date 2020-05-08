@@ -1,7 +1,7 @@
 package com.github.mohistzh.oo.parking.spot.internal;
 
 import com.github.mohistzh.oo.parking.pojo.constant.ParkingSpotType;
-import com.github.mohistzh.oo.parking.vehicle.Vehicle;
+import com.github.mohistzh.oo.parking.vehicle.internal.Vehicle;
 
 /**
  * An abstract class represents parking spot features.
